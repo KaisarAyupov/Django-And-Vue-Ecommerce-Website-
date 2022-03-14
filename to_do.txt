@@ -2,7 +2,7 @@
 #Todo list for part 1:
 -Create a virtual environment (done)
 -Install Django and create a project (done)
--Set up the database
+-Set up the database (done)
 -Create a superuser
 -Create a folder for the Django apps
 -Create folder and Django app for the core views (apps/core)
