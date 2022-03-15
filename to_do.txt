@@ -12,7 +12,7 @@ DONE -Creating a contact simple page
 DONE -Check that everything is working
 *********************************************************************************************************************************************
 Todo list for part 2:
--Create folder and app for the store app
+-DONE Create folder and app for the store app
 -Get list of products and show on the front page
 -Show detail view for a product
 -Show categories in the menu
