@@ -17,3 +17,12 @@ Todo list for part 2:
 -DONE Show detail view for a product
 -DONE Show categories in the menu
 -DONE Show detail view for a category (Title and list related products)
+*********************************************************************************************************************************************
+Todo list for part 3:
+-Create a footer and move "Contact" link down
+-Create an about page
+-Make it possible to set ordering for the categories
+-Add ordering to products, newest first
+-Only show featured products on the frontpage
+-Create folder and app for the cart
+-Create a view for the cart and show link in the menu
