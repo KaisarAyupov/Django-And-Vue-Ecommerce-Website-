@@ -16,4 +16,4 @@ Todo list for part 2:
 -DONE Get list of products and show on the front page
 -DONE Show detail view for a product
 -DONE Show categories in the menu
--Show detail view for a category (Title and list related products)
+-DONE Show detail view for a category (Title and list related products)
