@@ -21,7 +21,7 @@ Todo list for part 2:
 Todo list for part 3:
 -DONE Create a footer and move "Contact" link down
 -DONE Create an about page
--Make it possible to set ordering for the categories
+-DONE Make it possible to set ordering for the categories
 -Add ordering to products, newest first
 -Only show featured products on the frontpage
 -Create folder and app for the cart
