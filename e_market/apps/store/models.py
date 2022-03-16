@@ -21,6 +21,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=255)
     description = models.TextField(blank=True, null=True)
     price = models.FloatField()
+    is_featured = models.BooleanField(default=False)
     date_added =models.DateTimeField(auto_now_add=True)
 
     class Meta:
