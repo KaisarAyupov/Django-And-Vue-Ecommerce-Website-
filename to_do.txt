@@ -7,9 +7,9 @@
 -DONE Create a folder for the Django apps
 -DONE Create folder and Django app for the core views (apps/core)
     DONE-Create the base template
-DONE -Create view for the front page and a very basic template () ### for django 3.2  "apps/core/apps.py file, rename "core" to "apps.core"."
-DONE -Creating a contact simple page
-DONE -Check that everything is working
+-DONE Create view for the front page and a very basic template () ### for django 3.2  "apps/core/apps.py file, rename "core" to "apps.core"."
+-DONE Creating a contact simple page
+-DONE Check that everything is working
 *********************************************************************************************************************************************
 Todo list for part 2:
 -DONE Create folder and app for the store app
