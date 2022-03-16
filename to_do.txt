@@ -24,5 +24,5 @@ Todo list for part 3:
 -DONE Make it possible to set ordering for the categories
 -DONE Add ordering to products, newest first
 -DONE Only show featured products on the frontpage
--Create folder and app for the cart
+-DONE Create folder and app for the cart
 -Create a view for the cart and show link in the menu
