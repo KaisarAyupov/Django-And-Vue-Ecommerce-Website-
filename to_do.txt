@@ -25,4 +25,4 @@ Todo list for part 3:
 -DONE Add ordering to products, newest first
 -DONE Only show featured products on the frontpage
 -DONE Create folder and app for the cart
--Create a view for the cart and show link in the menu
+-DONE Create a view for the cart and show link in the menu
