@@ -4,14 +4,32 @@
 {% block content %}
 <div id="cartapp">
     <h1 class="title">Cart</h1>
-
     {% if cart %}
-    {% for item in cart %}
-    {% with product=item.product %}
-    <p>{{ product.title }}</p>
-    <button @click="removeFromCart({{ product.id }})" class="button is-danger">Remove</button>
-    {% endwith %}
-    {% endfor %}
+    <div class="table">
+        <table class="table">
+            <thead>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                {% with product=item.product %}
+                <tr>
+                    <td>{{ product.title }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.total_price }}</td>
+                    <td><button @click="removeFromCart({{ product.id }})" class="button is-danger">Remove</button></td>
+                </tr>
+                <p>{{ product.title }}</p>
+                {% endwith %}
+                {% endfor %}
+            </tbody>
+
+
+        </table>
+    </div>
     {% else %}
     <p>Your cart is empty!</p>
     {% endif %}

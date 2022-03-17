@@ -35,7 +35,7 @@ Todo list for part 4:
 -DONE Make it possible to remove products from the cart
 ********************************************************************************************************************************************
 Todo list for part 5:
--Show quantity and price in the cart
+-DONE 
 -Update quantity
 -More Vue.js in the cart (automatically remove products, etc)
 -Show cart in the menu (with quantity)
