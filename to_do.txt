@@ -26,3 +26,10 @@ Todo list for part 3:
 -DONE Only show featured products on the frontpage
 -DONE Create folder and app for the cart
 -DONE Create a view for the cart and show link in the menu
+*********************************************************************************************************************************************
+Todo list for part 4:
+-Add two settings for the cart in the settings file
+-Rename cart view to cart_detail
+-Create a Cart class
+-Make it possible to add products to the cart
+-Make it possible to remove products from the cart
