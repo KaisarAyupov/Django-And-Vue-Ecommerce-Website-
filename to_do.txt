@@ -28,7 +28,7 @@ Todo list for part 3:
 -DONE Create a view for the cart and show link in the menu
 *********************************************************************************************************************************************
 Todo list for part 4:
--Add two settings for the cart in the settings file
+-DONE Add two settings for the cart in the settings file
 -DONE Rename cart view to cart_detail
 -Create a Cart class
 -Make it possible to add products to the cart

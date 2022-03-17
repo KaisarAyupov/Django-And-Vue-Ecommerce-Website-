@@ -29,7 +29,11 @@ SECRET_KEY = config("SECRET_KEY") # this is to replace the secret key you cut aw
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CART_SESSION_ID = 'cart'
 
+# Cart
+
+SESSION_COOKIE_AGE = 86400
 
 # Application definition
 
