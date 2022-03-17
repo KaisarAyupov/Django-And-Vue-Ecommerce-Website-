@@ -31,5 +31,5 @@ Todo list for part 4:
 -DONE Add two settings for the cart in the settings file
 -DONE Rename cart view to cart_detail
 -DONE Create a Cart class
--Make it possible to add products to the cart
--Make it possible to remove products from the cart
+-DONE Make it possible to add products to the cart
+-DONE Make it possible to remove products from the cart
