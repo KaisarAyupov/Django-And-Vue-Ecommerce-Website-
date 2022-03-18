@@ -14,6 +14,11 @@
                 <th></th>
             </thead>
             <tbody>
+                <tr v-for="product in products">
+                    <td>[[ product.title ]]</td>
+                    <td>[[ product.quantity ]]</td>
+                    <td>[[ product.total_price ]]</td>
+                </tr>
                 {% for item in cart %}
                 {% with product=item.product %}
                 <tr>
@@ -32,6 +37,8 @@
     {% else %}
     <p>Your cart is empty!</p>
     {% endif %}
+
+    {{ productsstring }}
 </div>
 {% endblock %}
 
@@ -39,74 +46,98 @@
 <script>
     var productapp = new Vue({
         el: '#cartapp',
-        delimeters: ['[[', ']]'],
+        delimiters: ['[[', ']]'],
         data() {
             return {
+                products: [{{ productsstring | safe }
+        }],
+    }
+    },
+    mounted() {
+        console.log('Mounted');
+    },
+    methods: {
+        incrementQuantity(product_id, quantity) {
+            console.log('Product_id:', product_id);
+            var data = {
+                'product_id': product_id,
+                'update': true,
+                'quantity': parseInt(quantity) + 1
+            };
+            fetch('/api/api_add_to_cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
+            })
+                .then((response) => {
+                    console.log(response)
 
-            }
-        },
-        mounted() {
-            console.log('Mounted');
-        },
-        methods: {
-            incrementQuantity(product_id, quantity) {
-                console.log('Product_id:', product_id);
+                    this.showMessage = true
 
-                var data = {
-                    'product_id': product_id,
-                    'update': true,
-                    'quantity': parseInt(quantity) + 1
-                };
+                    store.commit('increment', 1);
 
-                fetch('/api/api_add_to_cart/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    credentials: 'same-origin',
-                    body: JSON.stringify(data)
+                    setTimeout(() => {
+                        this.showMessage = false
+                    }, 2000)
                 })
-                    .then((response) => {
-                        console.log(response)
-
-                        this.showMessage = true
-
-                        store.commit('increment', 1);
-
-                        setTimeout(() => {
-                            this.showMessage = false
-                        }, 2000)
-                    })
-                    .catch(function (error) {
-                        console.log('Error 2');
-                        console.log(error);
-                    })
-            },
-            removeFromCart(product_id) {
-                console.log('Remove product_id:', product_id);
-                var data = {
-                    'product_id': product_id
-                };
-                fetch('/api/remove_from_cart/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    credentials: 'same-origin',
-                    body: JSON.stringify(data)
+                .catch(function (error) {
+                    console.log('Error 2');
+                    console.log(error);
                 })
-                    .then((response) => {
-                        console.log(response)
-                        //this.products = this.products.filter(product => product.id !== product_id)
-                    })
-                    .catch(function (error) {
-                        console.log('Error 2');
-                        console.log(error);
-                    })
-            }
+
+        },
+        removeFromCart(product_id) {
+            console.log('Remove product_id:', product_id);
+            var data = {
+                'product_id': product_id
+            };
+            fetch('/api/remove_from_cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
+            })
+                .then((response) => {
+                    console.log(response)
+                    //this.products = this.products.filter(product => product.id !== product_id)
+                })
+                .catch(function (error) {
+                    console.log('Error 2');
+                    console.log(error);
+                })
+        },
+        removeFromCart(product_id) {
+            console.log('Remove product_id:', product_id);
+            var data = {
+                'product_id': product_id
+            };
+            fetch('/api/remove_from_cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
+            })
+                .then((response) => {
+                    console.log(response)
+                    //this.products = this.products.filter(product => product.id !== product_id)
+                })
+                .catch(function (error) {
+                    console.log('Error 2');
+                    console.log(error);
+                })
         }
-    });
+
+    }
+    })
 </script>
 {% endblock %}
