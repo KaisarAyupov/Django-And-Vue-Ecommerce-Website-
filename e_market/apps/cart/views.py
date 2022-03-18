@@ -11,9 +11,10 @@ def cart_detail(request):
 
     for item in cart:
         product = item['product']
-        b = "{'id': '%s', 'title': '%s', 'price': '%s', 'quantity': '%s', 'total_price': '%s'}," % (product.id, product.title, product.price, item['quantity'], item['total_price'])
+        b = "{'id': '%s', 'title': '%s', 'price': '%s', 'quantity': '%s', 'total_price': '%s'}," % (
+            product.id, product.title, product.price, item['quantity'], item['total_price'])
 
-        productsstring = productsstring + b    
+        productsstring = productsstring + b
 
     context = {
         'cart': cart,
