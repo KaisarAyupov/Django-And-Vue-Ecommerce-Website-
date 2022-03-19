@@ -39,3 +39,11 @@ Todo list for part 5:
 -DONE Update quantity
 -DONE SMore Vue.js in the cart (automatically remove products, etc)
 -DONE Show cart in the menu (with quantity)
+********************************************************************************************************************************************
+Todo list for part 5:
+-Add product pictures (Thumbnails using Pillow)
+-Show total price for the whole cart
+-CSS
+-Create new app for orders
+-Set up order models
+-Decrement quantity
