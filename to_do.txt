@@ -44,6 +44,6 @@ Todo list for part 5:
 -DONE Add product pictures (Thumbnails using Pillow)
 -DONE Show total price for the whole cart
 -DONE CSS
--Create new app for orders
+-DONE Create new app for orders
 -Set up order models
 -Decrement quantity
