@@ -41,7 +41,7 @@ Todo list for part 5:
 -DONE Show cart in the menu (with quantity)
 ********************************************************************************************************************************************
 Todo list for part 5:
--Add product pictures (Thumbnails using Pillow)
+-DONE Add product pictures (Thumbnails using Pillow)
 -Show total price for the whole cart
 -CSS
 -Create new app for orders
