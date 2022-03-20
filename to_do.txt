@@ -45,5 +45,5 @@ Todo list for part 5:
 -DONE Show total price for the whole cart
 -DONE CSS
 -DONE Create new app for orders
--Set up order models
+-DONE Set up order models
 -Decrement quantity
