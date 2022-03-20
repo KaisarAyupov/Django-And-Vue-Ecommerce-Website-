@@ -42,7 +42,7 @@ Todo list for part 5:
 ********************************************************************************************************************************************
 Todo list for part 5:
 -DONE Add product pictures (Thumbnails using Pillow)
--Show total price for the whole cart
+-DONE Show total price for the whole cart
 -CSS
 -Create new app for orders
 -Set up order models
