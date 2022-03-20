@@ -46,4 +46,4 @@ Todo list for part 5:
 -DONE CSS
 -DONE Create new app for orders
 -DONE Set up order models
--Decrement quantity
+-DONE Decrement quantity
