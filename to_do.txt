@@ -49,7 +49,7 @@ Todo list for part 5:
 -DONE Decrement quantity
 ********************************************************************************************************************************************
 Todo list for part 7:
--Create context processor for the cart
+-DONE Create context processor for the cart
 -Create new orders and clear cart
 -Create account at Stripe
 -Install stripe (pip)
