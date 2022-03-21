@@ -53,4 +53,4 @@ Todo list for part 7:
 -DONE Create new orders and clear cart
 -DONE Create account at Stripe
 -DONE Install stripe (pip)
--Fix quantity below 1
+-DONE Fix quantity below 1
