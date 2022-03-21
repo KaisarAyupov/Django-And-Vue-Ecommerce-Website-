@@ -1,8 +1,8 @@
 import json
-#import stripe
+import stripe
 #import razorpay
 
-#from django.conf import settings
+from django.conf import settings
 #from django.core.mail import EmailMultiAlternatives
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -19,6 +19,42 @@ from apps.order.utils import checkout
 from .models import Product
 from apps.order.models import Order, OrderItem
 
+
+
+def create_checkout_session(request):
+    cart = Cart(request)
+
+    stripe.api_key = settings.STRIPE_API_KEY_HIDDEN
+    items = []
+    
+    for item in cart:
+
+        product = item['product']
+
+        obj = {
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': product.title
+                },
+                'unit_amount': int(product.price * 100)
+            },
+            'quantity': item['quantity']
+        }
+
+        items.append(obj)
+    
+    session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=items,
+            mode='payment',
+            success_url='http://127.0.0.1:8000/cart/success/',
+            cancel_url='http://127.0.0.1:8000/cart/'
+        )
+        
+
+    
+    return JsonResponse({'session': session})
 
 
 def api_checkout(request):
@@ -41,10 +77,7 @@ def api_checkout(request):
         order.paid_amount = cart.get_total_cost()
         order.save()
 
-        cart.clear()
-    return JsonResponse(jsonresponse)
-
-    
+        cart.clear()    
     return JsonResponse(jsonresponse)
 
 

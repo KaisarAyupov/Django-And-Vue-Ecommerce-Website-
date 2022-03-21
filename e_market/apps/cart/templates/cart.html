@@ -93,38 +93,66 @@
     {% else %}
     <p>Your cart is empty!</p>
     {% endif %}
+
+    <button @click="buy()" class="button is-success">Check out</button>
 </div>
 {% endblock %}
 
 {% block scripts %}
+<script type="application/javascript" src="https://js.stripe.com/v3/"></script>
 <script>
     var productapp = new Vue({
-        el: '#cartapp',
-        delimiters: ['[[', ']]'],
-        store: store,
-        data() {
-            return {
-                first_name: '',
-                last_name: '',
-                email: '',
-                address: '',
-                zipcode: '',
-                place: '',
-                products: [{{ productsstring | safe }}]	
-	    }
-	},
+    el: '#cartapp',
+    delimiters: ['[[', ']]'],
+    store: store,
+    data() {
+        return {
+            first_name: '',
+            last_name: '',
+            email: '',
+            address: '',
+            zipcode: '',
+            place: '',
+            products: [{{ productsstring | safe }}]
+        }
+    },
     computed: {
-            numItems: function() {
-                return store.state.numItems
-            },
-            totalCost: function() {
-                return store.state.totalCost
-            }
+        numItems: function() {
+            return store.state.numItems
+        },
+        totalCost: function() {
+            return store.state.totalCost
+        }
     },
     methods: {
-        submitForm(){
+        buy() {
+            var stripe = Stripe('{{ pub_key }}');
+            fetch('/api/create_checkout_session/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                credentials: 'same-origin'
+            })
+            .then(function (response) {
+                return response.json()
+            })
+            .then(function (session) {
+                return stripe.redirectToCheckout({ sessionId: session.session.id })
+            })
+            .then(function (result) {
+                if (result.error) {
+                    alert(result.error.message)
+                }
+            })
+            .catch(function (error) {
+                console.log('Error:', error);
+            });
+        },
+        submitForm() {            
             console.log('Submit form')
-            var data = { 
+            var data = {
                 'first_name': this.first_name,
                 'last_name': this.last_name,
                 'email': this.email,
@@ -133,24 +161,23 @@
                 'place': this.place
             };
             fetch('/api/checkout/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    credentials: 'same-origin',
-                    body: JSON.stringify(data)
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
+            })
+                .then((response) => {
+                    console.log('Success')
+                    console.log(response)
+                    window.location.href = '/';
                 })
-                    .then((response) => {
-                        console.log('Success')
-                        console.log(response)
-                        window.location.href = '/';
-                    })
-                    .catch(function (error) {
-                        console.log('Error 2');
-                        console.log(error);
-                    })
-
+                .catch(function (error) {
+                    console.log('Error 2');
+                    console.log(error);
+                })
         },
         incrementQuantity(product_id, quantity, price) {
             console.log('Product_id:', product_id);
@@ -160,7 +187,6 @@
                 'update': true,
                 'quantity': parseInt(quantity) + 1
             };
-
             store.commit('increment', 1);
             store.commit('changeTotalCost', parseFloat(price));
 
@@ -176,14 +202,11 @@
                 .then((response) => {
                     console.log(response)
                     for (var i = 0; i < this.products.length; i++) {
-                                    var product = this.products[i];
-            
-                                    if (product.id === product_id) {
-                                        this.products[i].quantity = parseInt(this.products[i].quantity) + 1;
-                                        this.products[i].total_price = parseInt(this.products[i].quantity) * parseFloat(this.products[i].price)
-                                    }
-                                }
-
+                        var product = this.products[i];
+                        if (product.id === product_id) {
+                            this.products[i].total_price = parseInt(this.products[i].quantity) * parseFloat(this.products[i].price)
+                        }
+                    }
                 })
                 .catch(function (error) {
                     console.log('Error 2');
@@ -198,40 +221,38 @@
                 'update': true,
                 'quantity': parseInt(quantity) - 1
             };
-            
+
             store.commit('increment', -1);
             store.commit('changeTotalCost', -parseFloat(price));
             if (parseInt(quantity) - 1 === 0) {
-                    this.removeFromCart(product_id);
+                this.removeFromCart(product_id);
             } else {
-                    store.commit('increment', -1);
-                    store.commit('changeTotalCost', -parseFloat(price));                
+                store.commit('increment', -1);
+                store.commit('changeTotalCost', -parseFloat(price));
 
-            fetch('/api/api_add_to_cart/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                credentials: 'same-origin',
-                body: JSON.stringify(data)
-            })
-                .then((response) => {
-                    console.log(response)
-                    for (var i = 0; i < this.products.length; i++) {
-                                    var product = this.products[i];
-            
-                                    if (product.id === product_id) {
-                                        this.products[i].quantity = parseInt(this.products[i].quantity) - 1;
-                                        this.products[i].total_price = parseInt(this.products[i].quantity) * parseFloat(this.products[i].price)
-                                    }
-                                }
-
+                fetch('/api/api_add_to_cart/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
                 })
-                .catch(function (error) {
-                    console.log('Error 2');
-                    console.log(error);
-                })
+                    .then((response) => {
+                        console.log(response)
+                        for (var i = 0; i < this.products.length; i++) {
+                            var product = this.products[i];
+                            if (product.id === product_id) {
+                                this.products[i].quantity = parseInt(this.products[i].quantity) - 1;
+                                this.products[i].total_price = parseInt(this.products[i].quantity) * parseFloat(this.products[i].price)
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log('Error 2');
+                        console.log(error);
+                    })
             }
         },
         removeFromCart(product_id) {
@@ -240,6 +261,7 @@
             var data = {
                 'product_id': product_id
             };
+
             fetch('/api/remove_from_cart/', {
                 method: 'POST',
                 headers: {
@@ -251,7 +273,6 @@
             })
                 .then((response) => {
                     console.log(response)
-
                     this.products = this.products.filter(product => product.id !== product_id)
                 })
                 .catch(function (error) {
@@ -259,8 +280,8 @@
                     console.log(error);
                 })
         }
-
     }
-    });
+
+});
 </script>
 {% endblock %}
