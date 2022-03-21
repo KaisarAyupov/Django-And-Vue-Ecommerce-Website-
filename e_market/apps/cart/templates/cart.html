@@ -35,6 +35,61 @@
             </tfoot>
         </table>
     </div>
+    <form v-on:submit.prevent="submitForm()" >
+        <div class="field">
+            <label>First name</label>
+
+            <div class="control">
+                <input class="input" type="text" name="first_name" v-model="first_name">
+            </div>
+        </div>
+        <div class="field">
+            <label>Last name</label>
+
+            <div class="control">
+                <input class="input" type="text" name="last_name" v-model="last_name">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>E-mail</label>
+
+            <div class="control">
+                <input class="input" type="email" name="email" v-model="email">
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-6">
+        <div class="field">
+            <label>Address</label>
+
+            <div class="control">
+                <input class="input" type="text" name="address" v-model="address">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Zip code</label>
+
+            <div class="control">
+                <input class="input" type="text" name="zipcode" v-model="zipcode">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Place</label>
+
+            <div class="control">
+                <input class="input" type="text" name="place" v-model="place">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button class="button is-primary">Check out</button>
+            </div>
+        </div>
+    </form>
     {% else %}
     <p>Your cart is empty!</p>
     {% endif %}
@@ -51,6 +106,12 @@
         store: store,
         data() {
             return {
+                first_name: '',
+                last_name: '',
+                email: '',
+                address: '',
+                zipcode: '',
+                place: '',
                 products: [{{ productsstring | safe }}]	
 	    }
 	},
@@ -63,6 +124,35 @@
             }
     },
     methods: {
+        submitForm(){
+            var data = { 
+                'first_name': this.first_name,
+                'last_name': this.last_name,
+                'email': this.email,
+                'address': this.address,
+                'zipcode': this.zipcode,
+                'place': this.place
+            };
+            fetch('/api/checkout/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                })
+                    .then((response) => {
+                        console.log('Success')
+                        console.log(response)
+                        window.location.href = '/';
+                    })
+                    .catch(function (error) {
+                        console.log('Error 2');
+                        console.log(error);
+                    })
+
+        },
         incrementQuantity(product_id, quantity, price) {
             console.log('Product_id:', product_id);
 
@@ -104,7 +194,6 @@
         },
         decrementQuantity(product_id, quantity, price) {
             console.log('Product_id:', product_id);
-
             var data = {
                 'product_id': product_id,
                 'update': true,
