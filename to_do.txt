@@ -54,3 +54,8 @@ Todo list for part 7:
 -DONE Create account at Stripe
 -DONE Install stripe (pip)
 -DONE Fix quantity below 1
+********************************************************************************************************************************************
+Todo list for part 8:
+-Integrate Stripe
+-Stripe webhooks
+-Checkout form validation
