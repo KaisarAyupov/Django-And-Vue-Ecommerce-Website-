@@ -39,7 +39,7 @@ Todo list for part 5:
 -DONE Update quantity
 -DONE SMore Vue.js in the cart (automatically remove products, etc)
 -DONE Show cart in the menu (with quantity)
-********************************************************************************************************************************************
+******************************S**************************************************************************************************************
 Todo list for part 5:
 -DONE Add product pictures (Thumbnails using Pillow)
 -DONE Show total price for the whole cart
@@ -52,5 +52,5 @@ Todo list for part 7:
 -DONE Create context processor for the cart
 -DONE Create new orders and clear cart
 -DONE Create account at Stripe
--Install stripe (pip)
+-DONE Install stripe (pip)
 -Fix quantity below 1
