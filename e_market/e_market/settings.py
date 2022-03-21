@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+STRIPE_API_KEY_PUBLISHABLE = "pk_test_51KfamqDLAwab4EuVyJfy05trOF60L9ypMWeVN7JnDwTmu8F2Tb74wq1ufYZbtOB9dddpoaE3Mvshy9bBXKJjKTib00oRow18T4"
+STRIPE_API_KEY_HIDDEN = "sk_test_51KfamqDLAwab4EuVslncL7BI6Kql9Q6OJr5Kgc2tC5MUNSBeXp3amXvjRBkkZar5lCwYYtDk5UH3FJ9RVz3Bmwls00cUDKY886"
+
 from pathlib import Path
 import os
 

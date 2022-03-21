@@ -51,6 +51,6 @@ Todo list for part 5:
 Todo list for part 7:
 -DONE Create context processor for the cart
 -DONE Create new orders and clear cart
--Create account at Stripe
+-DONE Create account at Stripe
 -Install stripe (pip)
 -Fix quantity below 1
