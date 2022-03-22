@@ -56,6 +56,6 @@ Todo list for part 7:
 -DONE Fix quantity below 1
 ********************************************************************************************************************************************
 Todo list for part 8:
--Integrate Stripe
--Stripe webhooks
--Checkout form validation
+-DONE Integrate Stripe
+-DONE Stripe webhooks
+-DONE Checkout form validation

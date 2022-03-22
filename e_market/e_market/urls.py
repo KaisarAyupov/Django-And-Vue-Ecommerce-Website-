@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from apps.cart.webhook import webhook
 from apps.cart.views import cart_detail, success
 from apps.core.views import frontpage, contact, about
 from apps.store.views import product_detail, category_detail
@@ -25,9 +26,10 @@ from apps.store.views import product_detail, category_detail
 from apps.store.api import api_add_to_cart, api_remove_from_cart, api_checkout, create_checkout_session
 
 urlpatterns = [
-    path('', frontpage, name='frontpage'),
-    path('cart/success', success, name='success'),
+    path('', frontpage, name='frontpage'),    
     path('cart/', cart_detail, name='cart'),
+    path('hooks/', webhook, name='webhook'),
+    path('cart/success', success, name='success'),
     path('contact/', contact, name='contact'),
     path('about/', about, name='about'),
     path('admin/', admin.site.urls),
