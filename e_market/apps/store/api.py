@@ -17,9 +17,7 @@ from apps.cart.cart import Cart
 from apps.order.utils import checkout
 
 from .models import Product
-from apps.order.models import Order, OrderItem
-
-
+from apps.order.models import Order
 
 def create_checkout_session(request):
     cart = Cart(request)
@@ -50,9 +48,7 @@ def create_checkout_session(request):
             mode='payment',
             success_url='http://127.0.0.1:8000/cart/success/',
             cancel_url='http://127.0.0.1:8000/cart/'
-        )
-        
-
+    )
     
     return JsonResponse({'session': session})
 
