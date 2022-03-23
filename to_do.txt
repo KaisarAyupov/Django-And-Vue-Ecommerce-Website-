@@ -61,5 +61,5 @@ Todo list for part 8:
 -DONE Checkout form validation
 ********************************************************************************************************************************************
 Todo list for part 9:
--Install app coupon
+-DONE Install app coupon
 -Make it possible to use coupons
