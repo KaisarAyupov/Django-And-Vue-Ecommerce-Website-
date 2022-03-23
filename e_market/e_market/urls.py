@@ -21,13 +21,14 @@ from django.conf.urls.static import static
 from apps.cart.webhook import webhook
 from apps.cart.views import cart_detail, success
 from apps.core.views import frontpage, contact, about
-from apps.store.views import product_detail, category_detail
+from apps.store.views import product_detail, category_detail, search
 
 from apps.coupon.api import api_can_use
 from apps.store.api import api_add_to_cart, api_remove_from_cart, api_checkout, create_checkout_session
 
 urlpatterns = [
-    path('', frontpage, name='frontpage'),    
+    path('', frontpage, name='frontpage'),
+    path('search/', search, name='search'),
     path('cart/', cart_detail, name='cart'),
     path('hooks/', webhook, name='webhook'),
     path('cart/success', success, name='success'),

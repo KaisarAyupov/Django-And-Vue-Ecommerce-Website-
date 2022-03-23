@@ -27,6 +27,20 @@
         </div>
 
         <div id="main-navbar" class="navbar-menu" :class="{ 'is-active': menuClass }">
+            <div class="navbar-start">
+                <div class="navbar-item">
+                    <form method="get" action="{% url 'search' %}">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Search..." name="query">
+                            </div>
+                            <div class="control">
+                                <button class="button is-success">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="navbar-end">
                 {% for category in menu_categories %}
                 <a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a>
