@@ -59,3 +59,7 @@ Todo list for part 8:
 -DONE Integrate Stripe
 -DONE Stripe webhooks
 -DONE Checkout form validation
+********************************************************************************************************************************************
+Todo list for part 9:
+-Install app coupon
+-Make it possible to use coupons
