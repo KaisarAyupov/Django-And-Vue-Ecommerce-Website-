@@ -62,4 +62,12 @@ Todo list for part 8:
 ********************************************************************************************************************************************
 Todo list for part 9:
 -DONE Install app coupon
--Make it possible to use coupons
+-DONE Make it possible to use coupons
+********************************************************************************************************************************************
+Todo list for part 10:
+-DONE Fix the upload problems (models.py)
+-Fix the image urls (category_detail, frontpage)
+-Product pictures in categories
+-Fix the get_total_cost (iterate over self)
+-Show message when product is added to cart
+-Changes to the Django admin interface
