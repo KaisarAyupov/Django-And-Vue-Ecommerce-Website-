@@ -69,5 +69,5 @@ Todo list for part 10:
 -DONE Fix the image urls (category_detail, frontpage)
 -DONE Product pictures in categories
 -DONE Fix the get_total_cost (iterate over self)
--Show message when product is added to cart
+-DONE Show message when product is added to cart
 -Changes to the Django admin interface
