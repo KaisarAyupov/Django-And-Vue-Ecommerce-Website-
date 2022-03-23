@@ -57,7 +57,7 @@
             <hr>
 
         </div>
-        <form v-on:submit.prevent="submitForm()" >
+        <form v-on:submit.prevent="buy()" >
             <div class="field">
                 <label>First name</label>
     
@@ -97,8 +97,7 @@
             </div>
     
             <div class="field">
-                <label>Place</label>
-    
+                <label>Place</label>    
                 <div class="control">
                     <input class="input" type="text" name="place" v-model="place">
                 </div>
@@ -125,9 +124,7 @@
                 [[ error ]]
             </div>
         </article>
-    </div>
-
-    <button @click="buy()" class="button is-success">Check out</button>
+    </div>    
 </div>
 {% endblock %}
 
@@ -249,35 +246,6 @@
                     console.log('Error:', error);
                 });
             }    
-        },
-        submitForm() {            
-            console.log('Submit form')
-            var data = {
-                'first_name': this.first_name,
-                'last_name': this.last_name,
-                'email': this.email,
-                'address': this.address,
-                'zipcode': this.zipcode,
-                'place': this.place
-            };
-            fetch('/api/checkout/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                credentials: 'same-origin',
-                body: JSON.stringify(data)
-            })
-                .then((response) => {
-                    console.log('Success')
-                    console.log(response)
-                    window.location.href = '/';
-                })
-                .catch(function (error) {
-                    console.log('Error 2');
-                    console.log(error);
-                })
         },
         incrementQuantity(product_id, quantity, price) {
             console.log('Product_id:', product_id);
