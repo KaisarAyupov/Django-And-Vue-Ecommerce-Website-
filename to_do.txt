@@ -74,6 +74,6 @@ Todo list for part 10:
 ********************************************************************************************************************************************
 Todo list for part 12:
 -DONE Fix the mobile menu
--Simple product search
--Show thumbnail in cart and make it possible to click a product
+-DONE Simple product search
+-DONE Show thumbnail in cart and make it possible to click a product
 -Sitemaps
