@@ -71,3 +71,9 @@ Todo list for part 10:
 -DONE Fix the get_total_cost (iterate over self)
 -DONE Show message when product is added to cart
 -DONE Changes to the Django admin interface
+********************************************************************************************************************************************
+Todo list for part 12:
+-DONE Fix the mobile menu
+-Simple product search
+-Show thumbnail in cart and make it possible to click a product
+-Sitemaps
