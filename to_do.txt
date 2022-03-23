@@ -70,4 +70,4 @@ Todo list for part 10:
 -DONE Product pictures in categories
 -DONE Fix the get_total_cost (iterate over self)
 -DONE Show message when product is added to cart
--Changes to the Django admin interface
+-DONE Changes to the Django admin interface
