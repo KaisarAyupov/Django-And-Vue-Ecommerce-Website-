@@ -85,5 +85,9 @@ Todo list for part 13:
 Todo list for part 14:
 - DONE E-mails
 ********************************************************************************************************************************************
-Todo list for part 14:
+Todo list for part 15:
 -DONE My account
+********************************************************************************************************************************************
+Todo list for part 16:
+-DONE Different variants/sizes of a product
+-User a notification if the coupon code isn't valid
