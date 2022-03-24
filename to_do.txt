@@ -103,3 +103,6 @@ Todo list for part 19:
 -DONE get three objects from the database
 -DONE Show the list of related products
 -DONE Make the product list an included file
+********************************************************************************************************************************************
+Todo list for part 20:
+-DONE Review
