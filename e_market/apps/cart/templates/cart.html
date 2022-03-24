@@ -7,7 +7,7 @@
     {% if cart %}
     <div v-if="products.length > 0">  
         <div class="table">
-            <table class="table">
+            <table class="table is-fullwidth is-striped">
                 <thead>
                     <th></th>
                     <th>Product</th>
@@ -59,6 +59,7 @@
                 <div class="notification is-warning" v-if="showCouponCodeError">
                     <p>The coupon code is not valid!</p>
                 </div>
+                <hr>
 
             <hr>
 
@@ -67,51 +68,61 @@
             <p>Continue as guest or <a href="{% url 'login' %}">log in</a> / <a href="{% url 'signup' %}">sign up</a>.</p>
             <hr>
         {% endif %}
+        <h2 class="title">Contact information</h2>
         <form v-on:submit.prevent="buy()" >
-            <div class="field">
-                <label>First name</label>
-    
-                <div class="control">
-                    <input class="input" type="text" name="first_name" v-model="first_name">
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="field">
+                        <label>First name</label>
+            
+                        <div class="control">
+                            <input class="input" type="text" name="first_name" v-model="first_name">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Last name</label>
+            
+                        <div class="control">
+                            <input class="input" type="text" name="last_name" v-model="last_name">
+                        </div>
+                    </div>
+            
+                    <div class="field">
+                        <label>E-mail</label>
+            
+                        <div class="control">
+                            <input class="input" type="email" name="email" v-model="email">
+                        </div>
+                    </div>
                 </div>
+                <div class="column is-6">
+                    <div class="field">
+                        <label>Address</label>
+            
+                        <div class="control">
+                            <input class="input" type="text" name="address" v-model="address">
+                        </div>
+                    </div>
+            
+                    <div class="field">
+                        <label>Zip code</label>
+            
+                        <div class="control">
+                            <input class="input" type="text" name="zipcode" v-model="zipcode">
+                        </div>
+                    </div>
+            
+                    <div class="field">
+                        <label>Place</label>    
+                        <div class="control">
+                            <input class="input" type="text" name="place" v-model="place">
+                        </div>
+                    </div>
+                </div>  
+
             </div>
-            <div class="field">
-                <label>Last name</label>
-    
-                <div class="control">
-                    <input class="input" type="text" name="last_name" v-model="last_name">
-                </div>
-            </div>
-    
-            <div class="field">
-                <label>E-mail</label>
-    
-                <div class="control">
-                    <input class="input" type="email" name="email" v-model="email">
-                </div>
-            </div>
-            <div class="field">
-                <label>Address</label>
-    
-                <div class="control">
-                    <input class="input" type="text" name="address" v-model="address">
-                </div>
-            </div>
-    
-            <div class="field">
-                <label>Zip code</label>
-    
-                <div class="control">
-                    <input class="input" type="text" name="zipcode" v-model="zipcode">
-                </div>
-            </div>
-    
-            <div class="field">
-                <label>Place</label>    
-                <div class="control">
-                    <input class="input" type="text" name="place" v-model="place">
-                </div>
-            </div>
+                     
+            
             <div class="field">
                 <div class="control">
                     <button class="button is-primary">Check out</button>
