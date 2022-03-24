@@ -108,6 +108,12 @@
         </div>
     </article>
     <hr>
+    <h2 class="subtitle">Related products</h2>
+    {% with related_products as list_products %}
+        {% include 'parts/product_list.html' %}
+    {% endwith %}
+
+    <hr>
 </div>
 {% endblock %}
 
