@@ -39,6 +39,9 @@ class Order(models.Model):
     def __str__(self):
         return '%s' % self.first_name
 
+    def get_total_quantity(self):
+        return sum(int(item.quantity) for item in self.items.all())
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='items', on_delete=models.DO_NOTHING)
