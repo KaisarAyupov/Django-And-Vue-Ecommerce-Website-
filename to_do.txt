@@ -79,15 +79,19 @@ Todo list for part 12:
 -DONE Sitemaps
 ********************************************************************************************************************************************
 Todo list for part 13:
-- DONE Make it possible to add multiple images
-- DONE Set a product to "out of stock"
+-DONE Make it possible to add multiple images
+-DONE Set a product to "out of stock"
 ********************************************************************************************************************************************
 Todo list for part 14:
-- DONE E-mails
+-DONE E-mails
 ********************************************************************************************************************************************
 Todo list for part 15:
 -DONE My account
 ********************************************************************************************************************************************
 Todo list for part 16:
 -DONE Different variants/sizes of a product
--User a notification if the coupon code isn't valid
+-DONE User a notification if the coupon code isn't valid
+********************************************************************************************************************************************
+Todo list for part 17:
+-DONE log in form
+- sign up form prettier
