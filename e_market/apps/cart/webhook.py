@@ -1,3 +1,4 @@
+from itertools import product
 import json
 import stripe
 
@@ -31,6 +32,11 @@ def webhook(request):
         order = Order.objects.get(payment_intent=payment_intent.id)
         order.paid = True
         order.save()
+
+        for item in order.item.all():
+            product = item.product
+            product.num_available = product.num_available -item.quantity
+            product.save()
 
         """ decrement_product_quantity(order)  
         send_order_confirmation(order) """

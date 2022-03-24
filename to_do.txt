@@ -80,4 +80,4 @@ Todo list for part 12:
 ********************************************************************************************************************************************
 Todo list for part 13:
 - DONE Make it possible to add multiple images
-- Set a product to "out of stock"
+- DONE Set a product to "out of stock"

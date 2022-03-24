@@ -28,6 +28,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.FloatField()
     is_featured = models.BooleanField(default=False)
+    num_available = models.IntegerField(default=1)
 
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
