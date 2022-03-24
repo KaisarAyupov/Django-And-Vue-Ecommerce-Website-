@@ -26,6 +26,7 @@ from apps.core.views import frontpage, contact, about
 from apps.store.views import product_detail, category_detail, search
 from apps.userprofile.views import signup, myaccount
 
+from apps.newsletter.api import api_add_subscriber
 from apps.coupon.api import api_can_use
 from apps.store.api import api_add_to_cart, api_remove_from_cart, api_checkout, create_checkout_session
 
@@ -49,12 +50,14 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
     # API
     path('api/can_use/', api_can_use, name='api_can_use'),
     path('api/create_checkout_session/', create_checkout_session, name='create_checkout_session'),
     path('api/api_add_to_cart/', api_add_to_cart, name='api_add_to_cart'),
     path('api/remove_from_cart/', api_remove_from_cart, name='api_remove_from_cart'),
-     path('api/checkout/', api_checkout, name='api_checkout'),
+    path('api/checkout/', api_checkout, name='api_checkout'),
+    path('api/add_subscriber/', api_add_subscriber, name='api_add_subscriber'),
     # Store
 
 

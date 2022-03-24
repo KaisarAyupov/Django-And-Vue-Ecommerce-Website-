@@ -2,13 +2,15 @@
 
 {% block content %}
 <div class="columns">
-    <div class="column is-6 is-offset-3">
+    <div class="column is-3 is-offset-4">
         <h1 class="title">Sign up</h1>
 
         <form method="post" action=".">
             {% csrf_token %}
     
             {{ form.as_p }}
+
+            {{ userprofileform.as_p }}
     
             <div class="field">
                 <div class="control">

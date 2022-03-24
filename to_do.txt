@@ -94,4 +94,4 @@ Todo list for part 16:
 ********************************************************************************************************************************************
 Todo list for part 17:
 -DONE log in form
-- sign up form prettier
+-DONE sign up form prettier
