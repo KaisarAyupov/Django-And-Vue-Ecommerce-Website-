@@ -35,6 +35,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 CART_SESSION_ID = 'cart'
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'cart'
+LOGOUT_REDIRECT_URL = 'frontpage'
+
 # Cart
 
 SESSION_COOKIE_AGE = 86400

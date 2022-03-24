@@ -18,7 +18,10 @@ def admin_order_shipped(modeladmin, request, queryset):
     for order in queryset:
         order.shipped_date = datetime.datetime.now()
         order.status = Order.SHIPPED
-        order.save()        
+        order.save()
+
+        html = render_to_string('order_sent.html', {'order': order})
+        send_mail('Order sent', 'Your order has been sent!', 'noreply@kaisar.com', ['mail@saulgadgets.com', order.email], fail_silently=False, html_message=html)        
     return 
 admin_order_shipped.short_description = 'Set shipped'
 

@@ -83,4 +83,4 @@ Todo list for part 13:
 - DONE Set a product to "out of stock"
 ********************************************************************************************************************************************
 Todo list for part 14:
-- E-mails
+- DONE E-mails
