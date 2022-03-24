@@ -79,5 +79,5 @@ Todo list for part 12:
 -DONE Sitemaps
 ********************************************************************************************************************************************
 Todo list for part 13:
-- Make it possible to add multiple images
+- DONE Make it possible to add multiple images
 - Set a product to "out of stock"

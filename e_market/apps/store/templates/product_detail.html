@@ -1,8 +1,26 @@
 {% extends 'base.html' %}
+{% block title %}{{ product.title }} | {% endblock %}
 
 {% block content %}
 <div id="productapp">
-    <img src="{{ product.image }}">
+    <div class="columns">
+        <div class="column is-4">
+            <figure class="image is-4by3">
+                <img :src="mainImage">
+            </figure>
+        </div>
+    </div>
+    {% if product.images.all %}
+    <hr>
+    <div class="columns">
+        <div class="column is-2" v-for="image in images">
+            <figure class="image is-128x128">
+                <img :src="image.thumbnail" @click="changeMainImage(image.image)">
+            </figure>
+        </div>
+    </div>
+    {% endif %}
+    <hr>
     <h1 class="title">{{ product.title }}</h1>
     <h2 class="subtitle">{{ product.price }}</h2>
     {% if product.description %}
@@ -26,47 +44,52 @@
         store: store,
         data() {
             return {
-                showMessage: false
-            }
+                showMessage: false,
+                mainImage: '{{ product.image.url }}',
+                images: [{{ imagesstring|safe }}]
+    		}
         },
-        mounted() {
-            console.log('Mounted');
+    mounted() {
+        console.log('Mounted');
+    },
+    methods: {
+        changeMainImage(image) {
+            this.mainImage = image;
         },
-        methods: {
-            addToCart(product_id) {
-                console.log('Product_id:', product_id);
-                var data = {
-                    'product_id': product_id,
-                    'update': false,
-                    'quantity': 1
-                };
+        addToCart(product_id) {
+            console.log('Product_id:', product_id);
+            var data = {
+                'product_id': product_id,
+                'update': false,
+                'quantity': 1
+            };
 
-                fetch('/api/api_add_to_cart/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    credentials: 'same-origin',
-                    body: JSON.stringify(data)
+            fetch('/api/api_add_to_cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
+            })
+                .then((response) => {
+                    console.log(response)
+
+                    this.showMessage = true
+
+                    store.commit('increment', 1);
+
+                    setTimeout(() => {
+                        this.showMessage = false
+                    }, 2000)
                 })
-                    .then((response) => {
-                        console.log(response)
-
-                        this.showMessage = true
-
-                        store.commit('increment', 1);
-
-                        setTimeout(() => {
-                            this.showMessage = false
-                        }, 2000)
-                    })
-                    .catch(function (error) {
-                        console.log('Error 2');
-                        console.log(error);
-                    })
-            }
+                .catch(function (error) {
+                    console.log('Error 2');
+                    console.log(error);
+                })
         }
+    }
     });
 </script>
 {% endblock %}

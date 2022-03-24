@@ -19,7 +19,8 @@
         <div class="navbar-brand">
             <a class="navbar-item" href="{% url 'frontpage' %}">Saul Gadgets</a>
 
-            <a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
+            <a @click="toggleMenu()" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                data-target="main-navbar">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -69,49 +70,50 @@
             </div>
         </div>
     </footer>
-    
+
     <script>
         var store = new Vuex.Store({
-				state: {
-					numItems: {{ cart.get_total_length }},
-                    totalCost:  {{ cart.get_total_cost }}
-				},
-				mutations: {
-					increment(state, quantity) {
-						state.numItems += quantity;
-					},
-                    changeTotalCost(state, newCost) {
-						state.totalCost += newCost
-					}
-				}
-			});
-        var navbarapp = new Vue({
-				el: '#navbarapp',
-				delimiters: ['[[', ']]'],
-				store: store,
-                data () {
-					return {
-						menuClass: false
-					}
-				},
-                computed: {
-					numItems: function() {
-						return store.state.numItems
-					}
-				},
-                methods: {
-					toggleMenu() {
-						console.log('toggleMenu');
+            state: {
+                numItems: {{ cart.get_total_length }},
+                totalCost: {{ cart.get_total_cost }}
+            },
+            mutations: {
+                increment(state, quantity) {
+                    state.numItems += quantity;
+                },
+                changeTotalCost(state, newCost) {
+                    state.totalCost += newCost
+                }
+            }
+        });
 
-						this.menuClass = !this.menuClass;
-					}
-				}
-			});
+        var navbarapp = new Vue({
+            el: '#navbarapp',
+            delimiters: ['[[', ']]'],
+            store: store,
+            data() {
+                return {
+                    menuClass: false
+                }
+            },
+            computed: {
+                numItems: function () {
+                    return store.state.numItems
+                }
+            },
+            methods: {
+                toggleMenu() {
+                    console.log('toggleMenu');
+
+                    this.menuClass = !this.menuClass;
+                }
+            }
+        });
     </script>
     {% block scripts %}
     {% endblock %}
 
-    
+
 
 </body>
 
