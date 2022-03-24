@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'apps.coupon',
     'apps.core',
     'apps.order',
-    'apps.store',    
+    'apps.store',
+    'apps.userprofile',    
 
 ]
 
