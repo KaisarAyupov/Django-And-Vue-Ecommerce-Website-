@@ -117,4 +117,4 @@ Todo list for part 22:
 - DONE Show al the information inside my account
 - DONE Add the new information to the cart view
 - DONE Add new phon filed
-- Change the API to accept the new phone file
+- DONE Change the API to accept the new phone file
