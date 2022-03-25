@@ -1,13 +1,11 @@
 import random
 
-from datetime import datetime
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 
 from apps.cart.cart import Cart
-from .models import Product, Category, ProductReview
 
+from .models import Product, Category, ProductReview
 
 def search(request):
     query = request.GET.get('query')
@@ -30,7 +28,6 @@ def search(request):
     }
 
     return render(request, 'search.html', context)
-
 
 def product_detail(request, category_slug, slug):
     product = get_object_or_404(Product, slug=slug)
@@ -58,10 +55,8 @@ def product_detail(request, category_slug, slug):
     imagesstring = "{'thumbnail': '%s', 'image': '%s'}," % (product.thumbnail.url, product.image.url)
 
     for image in product.images.all():
-        imagesstring = imagesstring + \
-            ("{'thumbnail': '%s', 'image': '%s'}," % (
-                image.thumbnail.url, image.image.url))
-    
+        imagesstring = imagesstring + ("{'thumbnail': '%s', 'image': '%s'}," % (image.thumbnail.url, image.image.url))
+
     cart = Cart(request)
 
     if cart.has_product(product.id):
@@ -76,7 +71,6 @@ def product_detail(request, category_slug, slug):
     }
 
     return render(request, 'product_detail.html', context)
-
 
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
