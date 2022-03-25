@@ -1,9 +1,9 @@
 import json
 import stripe
-#import razorpay
+import razorpay
 
 from django.conf import settings
-#from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -12,13 +12,43 @@ from django.template.loader import render_to_string
 #from paypalcheckoutsdk.orders import OrdersCaptureRequest
 
 from apps.cart.cart import Cart
-#from apps.order.views import render_to_pdf
+from apps.order.views import render_to_pdf
 
 from apps.order.utils import checkout
 
 from .models import Product
 from apps.order.models import Order
 from apps.coupon.models import Coupon
+
+from .utilities import decrement_product_quantity, send_order_confirmation
+
+def validate_payment(request):
+    data = json.loads(request.body)
+    razorpay_payment_id = data['razorpay_payment_id']
+    razorpay_order_id = data['razorpay_order_id']
+    razorpay_signature = data['razorpay_signature']
+
+    client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY_PUBLISHABLE, settings.RAZORPAY_API_KEY_HIDDEN))
+
+    params_dict = {
+        'razorpay_payment_id': razorpay_payment_id,
+        'razorpay_order_id': razorpay_order_id,
+        'razorpay_signature': razorpay_signature
+    }
+
+    res = client.utility.verify_payment_signature(params_dict)
+
+    print(res)
+
+    if not res:
+        order = Order.objects.get(payment_intent=razorpay_order_id)
+        order.paid = True
+        order.save()
+
+        decrement_product_quantity(order)
+        send_order_confirmation(order)
+
+    return JsonResponse({'success': True})
 
 def create_checkout_session(request):
     data = json.loads(request.body)
@@ -61,14 +91,22 @@ def create_checkout_session(request):
         }
 
         items.append(obj)
+
+    gateway = data['gateway']
+    session = ''
+    order_id = ''
+    payment_intent = ''
     
-    session = stripe.checkout.Session.create(
+    if gateway == 'stripe':
+        stripe.api_key = settings.STRIPE_API_KEY_HIDDEN
+        session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=items,
             mode='payment',
             success_url='http://127.0.0.1:8000/cart/success/',
             cancel_url='http://127.0.0.1:8000/cart/'
-    )
+        )
+        payment_intent = session.payment_intent
 
     #
     # Create order
@@ -80,7 +118,7 @@ def create_checkout_session(request):
     zipcode = data['zipcode']
     place = data['place']
     phone = data['phone']
-    payment_intent = session.payment_intent
+    
 
     orderid = checkout(request, first_name,  last_name, email, address, zipcode, place, phone)
     
@@ -92,9 +130,20 @@ def create_checkout_session(request):
 
     if coupon_value > 0:
         total_price = total_price * (coupon_value / 100)
+    
+    if gateway == 'razorpay':
+        order_amount = total_price * 100
+        order_currency = 'INR'
+        client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY_PUBLISHABLE, settings.RAZORPAY_API_KEY_HIDDEN))
+        data = {
+            'amount': order_amount,
+            'currency': order_currency
+        }
+
+        payment_intent = client.order.create(data=data)
 
     order  = Order.objects.get(pk=orderid)
-    order.payment_intent = payment_intent
+    order.payment_intent = payment_intent['id']
     order.paid_amount = total_price
     order.used_coupon = coupon_code
     order.save()
