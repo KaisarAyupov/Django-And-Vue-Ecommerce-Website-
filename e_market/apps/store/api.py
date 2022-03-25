@@ -8,9 +8,6 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 
-#from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
-#from paypalcheckoutsdk.orders import OrdersCaptureRequest
-
 from apps.cart.cart import Cart
 from apps.order.views import render_to_pdf
 
@@ -52,6 +49,7 @@ def validate_payment(request):
 
 def create_checkout_session(request):
     data = json.loads(request.body)
+
     # Coupon 
 
     coupon_code = data['coupon_code']
@@ -65,13 +63,11 @@ def create_checkout_session(request):
             coupon.use()
 
     #
-    cart = Cart(request)
 
-    stripe.api_key = settings.STRIPE_API_KEY_HIDDEN
+    cart = Cart(request)
     items = []
     
     for item in cart:
-
         product = item['product']
 
         price = int(product.price * 100)
@@ -95,7 +91,6 @@ def create_checkout_session(request):
     gateway = data['gateway']
     session = ''
     order_id = ''
-    payment_intent = ''
     
     if gateway == 'stripe':
         stripe.api_key = settings.STRIPE_API_KEY_HIDDEN
@@ -110,18 +105,9 @@ def create_checkout_session(request):
 
     #
     # Create order
-    
-    first_name = data['first_name']
-    last_name = data['last_name']
-    email = data['email']
-    address = data['address']
-    zipcode = data['zipcode']
-    place = data['place']
-    phone = data['phone']
-    
 
-    orderid = checkout(request, first_name,  last_name, email, address, zipcode, place, phone)
-    
+    orderid = checkout(request, data['first_name'], data['last_name'], data['email'], data['address'], data['zipcode'], data['place'], data['phone'])
+
     total_price = 0.00
 
     for item in cart:
@@ -142,39 +128,18 @@ def create_checkout_session(request):
 
         payment_intent = client.order.create(data=data)
 
-    order  = Order.objects.get(pk=orderid)
-    order.payment_intent = payment_intent['id']
+    order = Order.objects.get(pk=orderid)
+    if gateway == 'razorpay':
+        order.payment_intent = payment_intent['id']
+    else:
+        order.payment_intent = payment_intent
     order.paid_amount = total_price
     order.used_coupon = coupon_code
     order.save()
 
-    return JsonResponse({'session': session})
+    #
 
-
-def api_checkout(request):
-    cart = Cart(request)
-    data = json.loads(request.body)
-    jsonresponse = {'success': True}
-    first_name = data['first_name']
-    last_name = data['last_name']
-    email = data['email']
-    address = data['address']
-    zipcode = data['zipcode']
-    place = data['place']
-
-    orderid = checkout(request, first_name,  last_name, email, address, zipcode, place)
-
-    paid = True
-    if paid == True:
-        order = Order.objects.get(pk=orderid)
-        order.paid = True
-        order.paid_amount = cart.get_total_cost()
-        order.save()
-
-        cart.clear()    
-    return JsonResponse(jsonresponse)
-
-
+    return JsonResponse({'session': session, 'order': payment_intent})
 
 def api_add_to_cart(request):
     data = json.loads(request.body)
