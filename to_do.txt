@@ -113,8 +113,8 @@ Todo list for part 21:
 Todo list for part 22:
 - DONE Add a new model 'userprofile'
 - DONE Create a new form for the userprofile
-- Implement the form in the sign up view
-- Show al the information inside my account
+- DONE Implement the form in the sign up view
+- DONE Show al the information inside my account
 - Add the new information to the cart view
 - Add new phon filed
 - Change the API to accept the new phone file
