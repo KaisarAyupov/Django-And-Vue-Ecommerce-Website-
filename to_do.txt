@@ -111,7 +111,7 @@ Todo list for part 21:
 -DONE Generate PDF's for the orders and send them to the customer
 ********************************************************************************************************************************************
 Todo list for part 22:
-- Add a new model 'userprofile'
+- DONE Add a new model 'userprofile'
 - Create a new form for the userprofile- Implement the form in the sign up view
 - Show al the information inside my account
 - Add the new information to the cart view
