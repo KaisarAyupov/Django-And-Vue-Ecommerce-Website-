@@ -9,15 +9,17 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+# SECURITY WARNING: keep the secret key used in production secret!
+from decouple import config
 
-STRIPE_API_KEY_PUBLISHABLE = "pk_test_51KfamqDLAwab4EuVyJfy05trOF60L9ypMWeVN7JnDwTmu8F2Tb74wq1ufYZbtOB9dddpoaE3Mvshy9bBXKJjKTib00oRow18T4"
-STRIPE_API_KEY_HIDDEN = "sk_test_51KfamqDLAwab4EuVslncL7BI6Kql9Q6OJr5Kgc2tC5MUNSBeXp3amXvjRBkkZar5lCwYYtDk5UH3FJ9RVz3Bmwls00cUDKY886"
+STRIPE_API_KEY_PUBLISHABLE = config("STRIPE_API_KEY_PUBLISHABLE")
+STRIPE_API_KEY_HIDDEN = config("STRIPE_API_KEY_HIDDEN")
 
-RAZORPAY_API_KEY_PUBLISHABLE = "rzp_test_Wj7ujrjP6ULku7"
-RAZORPAY_API_KEY_HIDDEN = "WT8djoNtYSAzA28BrhryFL07"
+RAZORPAY_API_KEY_PUBLISHABLE = config("RAZORPAY_API_KEY_PUBLISHABLE")
+RAZORPAY_API_KEY_HIDDEN = config("RAZORPAY_API_KEY_HIDDEN")
 
-PAYPAL_API_KEY_PUBLISHABLE = "AYi4OIt8AYgyxVoK4UhY13IX4rPZ_9gB_a2IxUlEly0Dq7fPvz7S8y7tOk0cj58HkKM5b7a1S4jlPH6B"
-PAYPAL_API_KEY_HIDDEN = "EHMMk1phsMB1aQTf0fHExoBimhQVU-U61W5U0cUOxuNwSBAK6c-zQWUiJxdqnNwbBbIbw9wBwZyb1PgJ"
+PAYPAL_API_KEY_PUBLISHABLE = config("PAYPAL_API_KEY_PUBLISHABLE")
+PAYPAL_API_KEY_HIDDEN = config("PAYPAL_API_KEY_HIDDEN")
 
 from pathlib import Path
 import os
@@ -29,8 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-from decouple import config
+
 
 SECRET_KEY = config("SECRET_KEY") # this is to replace the secret key you cut away before
 
