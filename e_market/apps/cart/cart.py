@@ -11,7 +11,6 @@ class Cart(object):
             cart = self.session[settings.CART_SESSION_ID] = {}
         
         self.cart = cart
-
     
     def __iter__(self):
         product_ids = self.cart.keys()        
@@ -51,7 +50,7 @@ class Cart(object):
             return True
         else:
             return False
-
+    
     def remove(self, product_id):
         if product_id in self.cart:
             del self.cart[product_id]
@@ -64,9 +63,9 @@ class Cart(object):
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
         self.session.modified = True
-    
+
     def get_total_length(self):
         return sum(int(item['quantity']) for item in self.cart.values())
-
+    
     def get_total_cost(self):
         return sum(float(item['total_price']) for item in self)
