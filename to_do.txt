@@ -118,3 +118,6 @@ Todo list for part 22:
 - DONE Add the new information to the cart view
 - DONE Add new phon filed
 - DONE Change the API to accept the new phone file
+********************************************************************************************************************************************
+Todo list for part 23:
+-DONE Add sub categories to the project
