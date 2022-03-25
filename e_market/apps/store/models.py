@@ -4,7 +4,6 @@ from django.db import models
 from PIL import Image
 from django.contrib.auth.models import User
 
-
 class Category(models.Model):
     parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255)
@@ -18,10 +17,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-
+    
     def get_absolute_url(self):
         return '/%s/' % (self.slug)
-
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
@@ -32,6 +30,8 @@ class Product(models.Model):
     price = models.FloatField()
     is_featured = models.BooleanField(default=False)
     num_available = models.IntegerField(default=1)
+    num_visits = models.IntegerField(default=0)
+    last_visit = models.DateTimeField(blank=True, null=True)
 
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
@@ -42,14 +42,26 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
-
-    def save(self, *args, **kwargs):
+    
+    """def save(self, *args, **kwargs):
         self.thumbnail = self.make_thumbnail(self.image)
-        super().save(*args, **kwargs)
-
+        super().save(*args, **kwargs)"""
+    
     def get_absolute_url(self):
         return '/%s/%s/' % (self.category.slug, self.slug)
 
+    def get_thumbnail(self):
+        if self.thumbnail:
+            return self.thumbnail.url
+        else:
+            if self.image:
+                self.thumbnail = self.make_thumbnail(self.image)
+                self.save()
+                
+                return self.thumbnail.url
+            else:
+                return ''
+    
     def make_thumbnail(self, image, size=(300, 200)):
         img = Image.open(image)
         img.convert('RGB')
@@ -62,10 +74,16 @@ class Product(models.Model):
 
         return thumbnail
 
+    def get_rating(self):
+        total = sum(int(review['stars']) for review in self.reviews.values())
+
+        if self.reviews.count() > 0:
+            return total / self.reviews.count()
+        else:
+            return 0
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(
-        Product, related_name='images', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
 
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
@@ -86,13 +104,6 @@ class ProductImage(models.Model):
         thumbnail = File(thumb_io, name=image.name)
 
         return thumbnail
-    def get_rating(self):
-        total = sum(int(review['stars']) for review in self.reviews.values())
-
-        if self.reviews.count() > 0:
-            return total / self.reviews.count()
-        else:
-            return 0
 
 class ProductReview(models.Model):
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
